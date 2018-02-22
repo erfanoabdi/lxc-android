@@ -1,10 +1,10 @@
 Source: lxc-android
 Priority: optional
-Maintainer: Bhushan Shah <bshah@kde.org>
+Maintainer: TheKit <nekit1000@gmail.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.8
 Section: libs
-Homepage: https://github.com/Halium/lxc-android
+Homepage: https://github.com/gemian/lxc-android
 
 Package: lxc-android
 Architecture: all
