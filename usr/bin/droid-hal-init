@@ -1,0 +1,8 @@
+#!/bin/sh
+# Wait for Android LXC container to start
+sleep 10
+
+mount /dev/disk/by-partlabel/nvcfg /nvcfg
+mount /dev/disk/by-partlabel/nvdata /nvdata
+
+echo 1 > /dev/wmtWifi

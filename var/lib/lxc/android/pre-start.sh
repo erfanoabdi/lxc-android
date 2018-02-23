@@ -13,11 +13,11 @@ mount_android_partitions() {
 
         mkdir -p ${lxc_rootfs_path}/$2
         mount -n -o bind,recurse $2 ${lxc_rootfs_path}/$2
-	done
+    done
 }
 
 INITRD=/system/boot/android-ramdisk.img
-rm -Rf $LXC_ROOTFS_PATH
+mount none -t tmpfs $LXC_ROOTFS_PATH
 mkdir -p $LXC_ROOTFS_PATH
 cd $LXC_ROOTFS_PATH
 cat $INITRD | gzip -d | cpio -i
@@ -37,9 +37,15 @@ rm -Rf $LXC_ROOTFS_PATH/vendor
 
 # Mount the android partitions
 mount_android_partitions $LXC_ROOTFS_PATH/fstab* "$LXC_ROOTFS_PATH"
+umount $LXC_ROOTFS_PATH/nvdata $LXC_ROOTFS_PATH/nvcfg
+umount /nvdata /nvcfg
 
 sed -i '/on early-init/a \    mkdir /dev/socket\n\    mount none /socket /dev/socket bind' $LXC_ROOTFS_PATH/init.rc
 
-sed -i "/mount_all /d" $LXC_ROOTFS_PATH/init.*.rc
+#sed -i "/mount_all /d" $LXC_ROOTFS_PATH/init.*.rc
+cp /var/lib/lxc/android/fstab.mt6797 $LXC_ROOTFS_PATH/fstab.mt6797
+
 sed -i "/swapon_all /d" $LXC_ROOTFS_PATH/init.*.rc
 sed -i "/on nonencrypted/d" $LXC_ROOTFS_PATH/init.rc
+
+echo 10 > /sys/class/firmware/timeout
