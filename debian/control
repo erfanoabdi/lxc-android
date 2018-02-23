@@ -7,7 +7,7 @@ Section: libs
 Homepage: https://github.com/gemian/lxc-android
 
 Package: lxc-android
-Architecture: all
+Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: lxc configuration for starting android
  .
