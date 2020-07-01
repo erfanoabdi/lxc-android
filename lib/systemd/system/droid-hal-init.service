@@ -1,6 +1,6 @@
 [Unit]
 Description=droid-hal-init
-Wants=lxc@android.service
+Wants=lxc@android.service android-mount.service
 After=lxc@android.service
 After=local-fs.target systemd-udev-settle.service
 Before=graphical.target display-manager.service lightdm.service
